@@ -1,5 +1,6 @@
 import pygame
 from Game import consts_variables
+from Game.jogo_screen import JogoScreen
 from enum import Enum
 
 class Estado(Enum):
@@ -8,8 +9,8 @@ class Estado(Enum):
     JOGO = 3
 
 class CutsceneScreen:
-    def __init__(self, game):
-        self.game = game
+    def __init__(self, game_controller):
+        self.game_controller = game_controller
         self.font = pygame.font.Font(None, 36)
         
         self.timer = 0
@@ -74,3 +75,6 @@ class CutsceneScreen:
         self.estado = Estado.JOGO
         consts_variables.seed_random = valor
         print("seed_random: ", consts_variables.seed_random)
+
+    def trocar_para_estado_jogo(self, game_controller):
+        self.game_controller.current_screen = JogoScreen(self.current_screen)
