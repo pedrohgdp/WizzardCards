@@ -1,0 +1,76 @@
+import pygame
+from Game import consts_variables
+from enum import Enum
+
+class Estado(Enum):
+    INTRO = 1
+    PEDIR_NOME = 2
+    JOGO = 3
+
+class CutsceneScreen:
+    def __init__(self, game):
+        self.game = game
+        self.font = pygame.font.Font(None, 36)
+        
+        self.timer = 0
+        self.estado = Estado.INTRO
+        self.nome_interno = ""
+
+        self.largura = consts_variables.LARGURA
+        self.altura = consts_variables.ALTURA
+    
+
+    def handle_events(self, events):
+        for event in events:
+            if self.estado == 2:
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_BACKSPACE:
+                        self.nome_interno = self.nome_interno[:-1]
+                    elif event.key == pygame.K_RETURN:
+                        self.converter_nome_para_seed()
+                    else:
+                        self.nome_interno += event.unicode
+
+    def update(self, dt):
+        if self.estado == Estado.INTRO:
+            self.timer += dt
+            if self.timer >= 2:
+                self.estado = Estado.PEDIR_NOME
+                self.timer = 0
+
+        if self.estado == Estado.JOGO:
+            #trocar de cena para jogo que acontece mesmo
+            pass
+
+    def draw(self, screen):
+        screen.fill((0, 0, 0))
+
+        if self.estado == Estado.INTRO:
+            self.escrever_texto_1_tela(screen)
+        elif self.estado == Estado.PEDIR_NOME:
+            self.escrever_texto_2_tela(screen)
+        
+
+    def escrever_texto_1_tela(self, screen):
+        texto = self.font.render("Ola mago. Bem-vindo ao jogo! ", True, (255, 255, 255))
+        rect = texto.get_rect(center=(self.largura/2, self.altura/2))
+        screen.blit(texto, rect)
+
+    def escrever_texto_2_tela(self, screen):
+        texto = self.font.render("Contenos o seu nome: ", True, (255, 255, 255))
+        rect = texto.get_rect(center=(self.largura/2, self.altura/2))
+        screen.blit(texto, rect)
+
+        texto_nome = self.font.render(self.nome_interno, True, (255,255,255))
+        rect_texto_nome = texto_nome.get_rect(center=(self.largura/2, self.altura/2))
+        rect_texto_nome.y += 50
+        screen.blit(texto_nome, rect_texto_nome)
+    
+    def converter_nome_para_seed(self):
+        valor = 0
+        for c in self.nome_interno:
+            valor += ord(c)
+        self.nome_interno = ""
+        self.estado = Estado.JOGO
+        consts_variables.seed_random = valor
+        print("seed_random: ", consts_variables.seed_random)
