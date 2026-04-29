@@ -17,8 +17,8 @@ class CutsceneScreen:
         self.estado = Estado.INTRO
         self.nome_interno = ""
 
-        self.largura = consts_variables.LARGURA
-        self.altura = consts_variables.ALTURA
+        self.width = consts_variables.WIDTH
+        self.height = consts_variables.HEIGHT
     
 
     def handle_events(self, events):
@@ -53,16 +53,16 @@ class CutsceneScreen:
 
     def escrever_texto_1_tela(self, screen):
         texto = self.font.render("Ola mago. Bem-vindo ao jogo! ", True, (255, 255, 255))
-        rect = texto.get_rect(center=(self.largura/2, self.altura/2))
+        rect = texto.get_rect(center=(self.width/2, self.height/2))
         screen.blit(texto, rect)
 
     def escrever_texto_2_tela(self, screen):
         texto = self.font.render("Contenos o seu nome: ", True, (255, 255, 255))
-        rect = texto.get_rect(center=(self.largura/2, self.altura/2))
+        rect = texto.get_rect(center=(self.width/2, self.height/2))
         screen.blit(texto, rect)
 
         texto_nome = self.font.render(self.nome_interno, True, (255,255,255))
-        rect_texto_nome = texto_nome.get_rect(center=(self.largura/2, self.altura/2))
+        rect_texto_nome = texto_nome.get_rect(center=(self.width/2, self.height/2))
         rect_texto_nome.y += 50
         screen.blit(texto_nome, rect_texto_nome)
     

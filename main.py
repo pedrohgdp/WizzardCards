@@ -4,7 +4,7 @@ from Game import consts_variables
 
 pygame.init()
 
-tela = pygame.display.set_mode((consts_variables.LARGURA, consts_variables.ALTURA))
+screen = pygame.display.set_mode((consts_variables.WIDTH, consts_variables.HEIGHT))
 
 clock = pygame.time.Clock()
 
@@ -21,7 +21,7 @@ while running:
 
     game.handle_events(events)
     game.update(dt)
-    game.draw(tela)
+    game.draw(screen)
 
     pygame.display.flip()
 
