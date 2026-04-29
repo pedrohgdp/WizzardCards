@@ -15,12 +15,18 @@ class JogoScreen():
         pass
 
     def update(self, dt):
-        pass
+        if self.visible_cards <= len(consts_variables.CARD_POSITIONS):
+            self.timer_next_card += dt
+
+            if self.timer_next_card >= self.delay_next_card:
+                self.timer_next_card = 0
+                self.visible_cards += 1
 
     def draw(self, screen):
         screen.blit(self.board, (0, 0))
 
-        for pos in consts_variables.CARD_POSITIONS:
+        for i in range(self.visible_cards - 1):
+            pos = consts_variables.CARD_POSITIONS[i]
             screen.blit(self.card, pos)
 
     def load_images(self):
@@ -37,3 +43,10 @@ class JogoScreen():
 
         self.card_width = consts_variables.CARD_WIDTH
         self.card_height = consts_variables.CARD_HEIGHT
+
+        self.timer_next_card = 0
+        self.visible_cards = 0
+        self.delay_next_card = 0.2
+    
+    
+
