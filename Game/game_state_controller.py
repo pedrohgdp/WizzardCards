@@ -1,5 +1,4 @@
 from Game.cutscene_screen import CutsceneScreen
-
 class Game:
     def __init__(self):
         self.current_screen = CutsceneScreen(self)

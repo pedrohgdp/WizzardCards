@@ -3,3 +3,8 @@ HEIGHT = 600
 FPS = 60
 
 seed_random = 0
+
+CARD_WIDTH = 86
+CARD_HEIGHT = 110
+
+CARD_POSITIONS = [(93, 105), (178, 105), (262, 105), (346, 105), (430, 105)]
