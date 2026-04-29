@@ -1,5 +1,5 @@
 import pygame
-from Game.game import Game
+from Game.game_state_controller import Game
 from Game import consts_variables
 
 pygame.init()

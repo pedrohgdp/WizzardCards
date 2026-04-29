@@ -23,7 +23,7 @@ class CutsceneScreen:
 
     def handle_events(self, events):
         for event in events:
-            if self.estado == 2:
+            if self.estado == Estado.PEDIR_NOME:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_BACKSPACE:
                         self.nome_interno = self.nome_interno[:-1]
@@ -40,8 +40,7 @@ class CutsceneScreen:
                 self.timer = 0
 
         if self.estado == Estado.JOGO:
-            #trocar de cena para jogo que acontece mesmo
-            pass
+            self.trocar_para_estado_jogo()
 
     def draw(self, screen):
         screen.fill((0, 0, 0))
@@ -76,5 +75,5 @@ class CutsceneScreen:
         consts_variables.seed_random = valor
         print("seed_random: ", consts_variables.seed_random)
 
-    def trocar_para_estado_jogo(self, game_controller):
-        self.game_controller.current_screen = JogoScreen(self.current_screen)
+    def trocar_para_estado_jogo(self):
+        self.game_controller.current_screen = JogoScreen(self.game_controller)
