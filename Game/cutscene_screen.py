@@ -1,4 +1,5 @@
 import pygame
+import random
 from Game import consts_variables
 from Game.jogo_screen import JogoScreen
 from enum import Enum
@@ -72,7 +73,7 @@ class CutsceneScreen:
             valor += ord(c)
         self.nome_interno = ""
         self.estado = Estado.JOGO
-        consts_variables.seed_random = valor
+        consts_variables.seed_random = valor + random.randint()
         print("seed_random: ", consts_variables.seed_random)
 
     def trocar_para_estado_jogo(self):

@@ -1,6 +1,8 @@
 import pygame
 from enum import Enum
 from Game import consts_variables
+from Game.enemy import Enemy
+from Game.player import Player
 
 class GameStates(Enum):
     pass
@@ -47,6 +49,9 @@ class JogoScreen():
         self.timer_next_card = 0
         self.visible_cards = 0
         self.delay_next_card = 0.2
-    
+
+        self.player = Enemy()
+
+        self.enemy = Player()
     
 
