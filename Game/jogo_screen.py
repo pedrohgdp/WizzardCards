@@ -5,13 +5,23 @@ from Game.enemy import Enemy
 from Game.player import Player
 
 class GameStates(Enum):
-    pass
+    FILLING_HANDS = 1
+    PLAYER_SELECTING_CARDS = 2
+    ENEMY_SELECTING_CARDS = 3
+    ATTACK_AND_DEFENSE_MODE = 4
+
 class JogoScreen():
     def __init__(self, game_controller):
         self.game_controller = game_controller
 
         self.create_variables()
         self.load_images()
+
+        if self.actual_state == GameStates.FILLING_HANDS:
+            self.player.fill_player_hand()
+            self.enemy.fill_hand()
+            self.draw_player_cards()
+            self.actual_state = GameStates.PLAYER_SELECTING_CARDS
 
     def handle_events(self, events):
         pass
@@ -31,6 +41,9 @@ class JogoScreen():
             pos = consts_variables.CARD_POSITIONS[i]
             screen.blit(self.card, pos)
 
+    def draw_player_cards():
+        pass
+
     def load_images(self):
         self.board = pygame.image.load('Game/Sprites/Board.png').convert()
         self.board = pygame.transform.scale(self.board, (self.screen_width, self.screen_height))
@@ -49,6 +62,8 @@ class JogoScreen():
         self.timer_next_card = 0
         self.visible_cards = 0
         self.delay_next_card = 0.2
+
+        self.actual_state = GameStates.FILLING_HANDS
 
         self.player = Enemy()
 
