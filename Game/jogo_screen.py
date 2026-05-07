@@ -45,7 +45,7 @@ class JogoScreen():
         pass
 
     def load_images(self):
-        self.board = pygame.image.load('Game/Sprites/Board.png').convert()
+        self.board = pygame.image.load('Game/Sprites/Board.png').convert_alpha()
         self.board = pygame.transform.scale(self.board, (self.screen_width, self.screen_height))
 
         self.card = pygame.image.load('Game/Sprites/EnemyCard.png').convert_alpha()

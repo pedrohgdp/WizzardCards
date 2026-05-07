@@ -12,7 +12,6 @@ class Estado(Enum):
 class CutsceneScreen:
     def __init__(self, game_controller):
         self.game_controller = game_controller
-        self.font = pygame.font.Font(None, 36)
         
         self.timer = 0
         self.estado = Estado.INTRO
@@ -53,18 +52,17 @@ class CutsceneScreen:
         
 
     def escrever_texto_1_tela(self, screen):
-        texto = self.font.render("Ola mago. Bem-vindo ao jogo! ", True, (255, 255, 255))
+        texto = self.game_controller.font.render("Ola mago. Bem-vindo ao jogo! ", True, (255, 255, 255))
         rect = texto.get_rect(center=(self.width/2, self.height/2))
         screen.blit(texto, rect)
 
     def escrever_texto_2_tela(self, screen):
-        texto = self.font.render("Contenos o seu nome: ", True, (255, 255, 255))
+        texto = self.game_controller.font.render("Contenos o seu nome: ", True, (255, 255, 255))
         rect = texto.get_rect(center=(self.width/2, self.height/2))
         screen.blit(texto, rect)
 
-        texto_nome = self.font.render(self.nome_interno, True, (255,255,255))
-        rect_texto_nome = texto_nome.get_rect(center=(self.width/2, self.height/2))
-        rect_texto_nome.y += 50
+        texto_nome = self.game_controller.font.render(self.nome_interno, True, (255,255,255))
+        rect_texto_nome = texto_nome.get_rect(center=(self.width/2 - 30, self.height/2 + 50))
         screen.blit(texto_nome, rect_texto_nome)
     
     def converter_nome_para_seed(self):
@@ -73,7 +71,7 @@ class CutsceneScreen:
             valor += ord(c)
         self.nome_interno = ""
         self.estado = Estado.JOGO
-        consts_variables.seed_random = valor + random.randint()
+        consts_variables.seed_random = valor + random.randint(0, 50)
         print("seed_random: ", consts_variables.seed_random)
 
     def trocar_para_estado_jogo(self):

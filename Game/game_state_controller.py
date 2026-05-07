@@ -1,7 +1,10 @@
-from Game.cutscene_screen import CutsceneScreen
+import pygame
+from Game.main_menu import MainMenu
+
 class Game:
     def __init__(self):
-        self.current_screen = CutsceneScreen(self)
+        self.font = pygame.font.Font("Game/Font/PressStart2P-Regular.ttf", 15)
+        self.current_screen = MainMenu(self)
 
     def handle_events(self, events):
         self.current_screen.handle_events(events)
