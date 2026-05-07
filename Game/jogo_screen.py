@@ -1,6 +1,6 @@
 import pygame
 from enum import Enum
-from Game import consts_variables
+from Game import consts_and_variables
 from Game.enemy import Enemy
 from Game.player import Player
 
@@ -27,7 +27,7 @@ class JogoScreen():
         pass
 
     def update(self, dt):
-        if self.visible_cards <= len(consts_variables.CARD_POSITIONS):
+        if self.visible_cards <= len(consts_and_variables.CARD_POSITIONS):
             self.timer_next_card += dt
 
             if self.timer_next_card >= self.delay_next_card:
@@ -38,7 +38,7 @@ class JogoScreen():
         screen.blit(self.board, (0, 0))
 
         for i in range(self.visible_cards - 1):
-            pos = consts_variables.CARD_POSITIONS[i]
+            pos = consts_and_variables.CARD_POSITIONS[i]
             screen.blit(self.card, pos)
 
     def draw_player_cards():
@@ -53,11 +53,11 @@ class JogoScreen():
 
 
     def create_variables(self):
-        self.screen_width = consts_variables.WIDTH
-        self.screen_height = consts_variables.HEIGHT
+        self.screen_width = consts_and_variables.WIDTH
+        self.screen_height = consts_and_variables.HEIGHT
 
-        self.card_width = consts_variables.CARD_WIDTH
-        self.card_height = consts_variables.CARD_HEIGHT
+        self.card_width = consts_and_variables.CARD_WIDTH
+        self.card_height = consts_and_variables.CARD_HEIGHT
 
         self.timer_next_card = 0
         self.visible_cards = 0

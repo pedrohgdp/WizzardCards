@@ -1,6 +1,6 @@
 import pygame
 from Game.cutscene_screen import CutsceneScreen
-from Game import consts_variables
+from Game import consts_and_variables
 
 class MainMenu:
     def __init__(self, game_controller):
@@ -10,8 +10,8 @@ class MainMenu:
 
         self.font_menu = pygame.font.Font("Game/Font/PressStart2P-Regular.ttf", 10)
 
-        self.width = consts_variables.WIDTH
-        self.height = consts_variables.HEIGHT
+        self.width = consts_and_variables.WIDTH
+        self.height = consts_and_variables.HEIGHT
         
         self.main_menu_image = pygame.image.load('Game/Sprites/MainMenuImage.png').convert_alpha()
         self.main_menu_image = pygame.transform.scale(self.main_menu_image, (self.width, self.height))

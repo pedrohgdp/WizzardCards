@@ -1,10 +1,10 @@
 import pygame
 from Game.game_state_controller import Game
-from Game import consts_variables
+from Game import consts_and_variables
 
 pygame.init()
 
-screen = pygame.display.set_mode((consts_variables.WIDTH, consts_variables.HEIGHT))
+screen = pygame.display.set_mode((consts_and_variables.WIDTH, consts_and_variables.HEIGHT))
 
 clock = pygame.time.Clock()
 
@@ -12,7 +12,7 @@ game = Game()
 
 running = True
 while running:
-    dt = clock.tick(consts_variables.FPS) / 1000
+    dt = clock.tick(consts_and_variables.FPS) / 1000
 
     events = pygame.event.get()
     for event in events:
