@@ -4,9 +4,9 @@ FPS = 60
 
 seed_random = 0
 
-player_cards = ()
-enemy_cards = ()
-deck = ()
+player_cards = []
+enemy_cards = []
+deck = []
 
 CARD_WIDTH = 86
 CARD_HEIGHT = 110

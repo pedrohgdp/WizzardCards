@@ -6,9 +6,10 @@ from Game.player import Player
 
 class GameStates(Enum):
     FILLING_HANDS = 1
-    PLAYER_SELECTING_CARDS = 2
-    ENEMY_SELECTING_CARDS = 3
-    ATTACK_AND_DEFENSE_MODE = 4
+    PLAYER_SELECTING_ATK_CARDS = 2
+    PLAYER_SELECTING_DEF_CARDS = 3
+    ENEMY_SELECTING_CARDS = 4
+    ATTACK_AND_DEFENSE_MODE = 5
 
 class JogoScreen():
     def __init__(self, game_controller):
@@ -21,7 +22,7 @@ class JogoScreen():
             self.player.fill_player_hand()
             self.enemy.fill_hand()
             self.draw_player_cards()
-            self.actual_state = GameStates.PLAYER_SELECTING_CARDS
+            self.actual_state = GameStates.PLAYER_SELECTING_ATK_CARDS
 
     def handle_events(self, events):
         pass
@@ -69,4 +70,5 @@ class JogoScreen():
 
         self.enemy = Player()
     
-
+    def create_card_rect():
+        pass
