@@ -4,9 +4,6 @@ class Enemy(Entity):
     def __init__(self):
         super
     
-    def fill_hand():
-        pass
-    
     def select_defense_cards():
         pass
 
