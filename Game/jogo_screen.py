@@ -84,7 +84,7 @@ class JogoScreen():
 
         self.life_ui = pygame.image.load('Game/Sprites/LifeImage.png').convert_alpha()
         self.life_ui = pygame.transform.smoothscale(self.life_ui, (consts_and_variables.LIFE_IMAGE_WIDTH, consts_and_variables.LIFE_IMAGE_HEIGHT))
-
+        
     def create_variables(self):
         self.player = Player()
 
@@ -100,7 +100,7 @@ class JogoScreen():
         self.card_player_height = consts_and_variables.CARD_PLAYER_HEIGHT
 
         self.player_life_text_pos = (155,  consts_and_variables.HEIGHT - 87)
-        self.enemy_life_text_pos = (155, 87)
+        self.enemy_life_text_pos = (155, 73)
 
         self.timer_next_card = 0
         self.visible_cards = 0
