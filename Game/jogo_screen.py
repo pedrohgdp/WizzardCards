@@ -46,11 +46,13 @@ class JogoScreen():
 
     def draw(self, screen):
         player_life_text = self.game_controller.font.render(str(self.player.life), True, (255, 255, 255))
+        enemy_life_text = self.game_controller.font.render(str(self.enemy.life), True, (255, 255, 255))
 
         screen.blit(self.board, (0, 0))
         screen.blit(self.life_ui, (consts_and_variables.LIFE_IMAGE_ENEMY_POSITION_WIDTH, consts_and_variables.LIFE_IMAGE_ENEMY_POSITION_HEIGHT))
         screen.blit(self.life_ui, (consts_and_variables.LIFE_IMAGE_PLAYER_POSITION_WIDTH, consts_and_variables.LIFE_IMAGE_PLAYER_POSITION_HEIGHT))
         screen.blit(player_life_text, self.player_life_text_pos)
+        screen.blit(enemy_life_text, self.enemy_life_text_pos)
 
         for i in range(self.visible_cards):
             pos = consts_and_variables.CARD_POSITIONS_ENEMY[i]
@@ -97,7 +99,8 @@ class JogoScreen():
         self.card_player_width = consts_and_variables.CARD_PLAYER_WIDTH
         self.card_player_height = consts_and_variables.CARD_PLAYER_HEIGHT
 
-        self.player_life_text_pos = (consts_and_variables.LIFE_IMAGE_WIDTH + 20,  consts_and_variables.LIFE_IMAGE_HEIGHT)
+        self.player_life_text_pos = (155,  consts_and_variables.HEIGHT - 87)
+        self.enemy_life_text_pos = (155, 87)
 
         self.timer_next_card = 0
         self.visible_cards = 0
