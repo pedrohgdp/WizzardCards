@@ -2,7 +2,7 @@ from Game.entity import Entity
 
 class Enemy(Entity):
     def __init__(self):
-        super
+        super().__init__()
     
     def select_defense_cards():
         pass
