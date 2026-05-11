@@ -13,7 +13,7 @@ class DeckController:
 
         self.deck = [(c["rank"], c["code"]) for c in data["deck"]]
 
-    def draw_hand(self, size):
+    def fill_hand(self, size):
         hand = []
 
         for _ in range(size):
