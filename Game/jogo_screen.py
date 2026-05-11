@@ -52,16 +52,10 @@ class JogoScreen:
         self.board = pygame.transform.smoothscale(self.board, (self.screen_width, self.screen_height))
 
         self.card_enemy = pygame.image.load('Game/Sprites/EnemyCard.png').convert_alpha()
-        self.card_enemy = pygame.transform.smoothscale(
-            self.card_enemy,
-            (consts_and_variables.CARD_ENEMY_WIDTH, consts_and_variables.CARD_ENEMY_HEIGHT)
-        )
+        self.card_enemy = pygame.transform.smoothscale(self.card_enemy, (consts_and_variables.CARD_ENEMY_WIDTH, consts_and_variables.CARD_ENEMY_HEIGHT))
 
         self.life_ui = pygame.image.load('Game/Sprites/LifeImage.png').convert_alpha()
-        self.life_ui = pygame.transform.smoothscale(
-            self.life_ui,
-            (consts_and_variables.LIFE_IMAGE_WIDTH, consts_and_variables.LIFE_IMAGE_HEIGHT)
-        )
+        self.life_ui = pygame.transform.smoothscale(self.life_ui, (consts_and_variables.LIFE_IMAGE_WIDTH, consts_and_variables.LIFE_IMAGE_HEIGHT))
 
     def create_hands(self):
         player_hand = self.deck_controller.fill_deck(5)
@@ -72,14 +66,14 @@ class JogoScreen:
             pos = consts_and_variables.CARD_POSITIONS_PLAYER[i]
             size = (consts_and_variables.CARD_PLAYER_WIDTH, consts_and_variables.CARD_PLAYER_HEIGHT)
 
-            self.player_cards.append(Card(f'Game/Sprites/Cards/{code}.png', pos, size, rank))
+            self.player_cards.append(Card(f'Game/Sprites/Cards/{code}.png', pos, size, rank, self.player))
 
         for i, (rank, code) in enumerate(enemy_hand):
 
             pos = consts_and_variables.CARD_POSITIONS_ENEMY[i]
             size = (consts_and_variables.CARD_ENEMY_WIDTH, consts_and_variables.CARD_ENEMY_HEIGHT)
 
-            self.enemy_cards.append(Card(f'Game/Sprites/Cards/{code}.png', pos, size, rank))
+            self.enemy_cards.append(Card(f'Game/Sprites/Cards/{code}.png', pos, size, rank, self.player))
 
     def handle_events(self, events):
         if self.actual_state == GameStates.PLAYER_SELECTING_ATK_CARDS:
@@ -92,7 +86,7 @@ class JogoScreen:
 
                     for card in self.player_cards:
 
-                        if card.click(pos):
+                        if card.click(pos, True):
                             print("Carta clicada")
                             print(card.rank)
 
@@ -128,14 +122,14 @@ class JogoScreen:
             screen.blit(self.card_enemy, consts_and_variables.CARD_POSITIONS_ENEMY[i])
             self.player_cards[i].draw(screen)
 
-            def next_round(self):
+    def next_round(self):
 
-                self.player_cards.clear()
-                self.enemy_cards.clear()
+        self.player_cards.clear()
+        self.enemy_cards.clear()
 
-                self.visible_cards = 0
-                self.timer_next_card = 0
+        self.visible_cards = 0
+        self.timer_next_card = 0
 
-                self.create_hands()
+        self.create_hands()
 
-                self.actual_state = GameStates.DRAWING_CARDS
+        self.actual_state = GameStates.DRAWING_CARDS
