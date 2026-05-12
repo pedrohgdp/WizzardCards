@@ -53,6 +53,13 @@ class JogoScreen:
 
         self.idle_state = IDLE.ATK
 
+        self.damage_text_timer = 0
+
+        self.player_damage_text = ""
+        self.enemy_damage_text = ""
+
+        self.show_damage_text = False
+
 
     def create_board(self):
         self.screen_width = consts_and_variables.WIDTH
@@ -143,6 +150,7 @@ class JogoScreen:
                                 print("player def:", self.player_def)
 
                                 return
+                            
 
 
     def update(self, dt):
@@ -159,6 +167,33 @@ class JogoScreen:
 
             else:
                 self.actual_state = GameStates.PLAYER_SELECTING_ATK_CARDS
+
+        elif self.actual_state == GameStates.ENEMY_SELECTING_CARDS:
+
+            self.enemy_atk, self.enemy_def = (
+                self.enemy.calculate_best_attack_and_defense(
+                    self.enemy_cards
+                )
+            )
+
+            print("Enemy ATK:", self.enemy_atk)
+            print("Enemy DEF:", self.enemy_def)
+
+            self.apply_damage()
+
+            self.actual_state = GameStates.ATTACK_AND_DEFENSE_MODE
+
+        elif self.actual_state == GameStates.ATTACK_AND_DEFENSE_MODE:
+
+            if self.show_damage_text:
+
+                self.damage_text_timer -= dt
+
+                if self.damage_text_timer <= 0:
+
+                    self.show_damage_text = False
+
+                    self.next_round()
 
     def draw(self, screen):
 
@@ -179,6 +214,15 @@ class JogoScreen:
             screen.blit(self.card_enemy, consts_and_variables.CARD_POSITIONS_ENEMY[i])
             self.player_cards[i].draw(screen)
 
+        if self.show_damage_text:
+
+            player_damage_surface = self.game_controller.font.render(self.player_damage_text, True, (255, 0, 0))
+
+            enemy_damage_surface = self.game_controller.font.render(self.enemy_damage_text, True, (255, 0, 0))
+
+            screen.blit(player_damage_surface, (200, consts_and_variables.HEIGHT - 87))
+            screen.blit(enemy_damage_surface, (200, 73))
+
     def next_round(self):
 
         self.player_cards.clear()
@@ -187,6 +231,29 @@ class JogoScreen:
         self.visible_cards = 0
         self.timer_next_card = 0
 
+        self.player_atk = 0
+        self.player_def = 0
+
+        self.enemy_atk = 0
+        self.enemy_def = 0
+
+        self.idle_state = IDLE.ATK
+
         self.create_hands()
 
         self.actual_state = GameStates.DRAWING_CARDS
+
+    def apply_damage(self):
+
+        player_damage = max(0, self.enemy_atk - self.player_def)
+
+        enemy_damage = max(0, self.player_atk - self.enemy_def)
+
+        self.player.life -= player_damage
+        self.enemy.life -= enemy_damage
+
+        self.player_damage_text = f"-{player_damage}"
+        self.enemy_damage_text = f"-{enemy_damage}"
+
+        self.damage_text_timer = 1.5
+        self.show_damage_text = True
