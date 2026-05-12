@@ -27,25 +27,17 @@ class Card:
         if self.selected_def:
             pygame.draw.rect(screen, (0, 255, 0), self.rect, 3)
 
-    def click(self, pos, atk_mode):
-
+    def click(self, pos, select_atk_cards, select_def_cards):
         if self.rect.collidepoint(pos):
-            if atk_mode:
+
+            if select_atk_cards and not select_def_cards:
                 self.selected_atk = not self.selected_atk
-                self.atk_total += self.rank
-                print("atk_total ", self.atk_total)
-                print("def_total ", self.def_total)
-                return True
-
-            self.selected_def = not self.selected_def
-            self.def_total += self.rank
-            print("atk_total ", self.atk_total)
-            print("def_total ", self.def_total)
-
-        return False
-    
-    def get_atk(self):
-        return self.atk_total
-
-    def get_def(self):
-        return self.def_total
+            
+            if not select_atk_cards and select_def_cards:
+                self.selected_def = not self.selected_def
+                
+            if self.rank == "K" or self.rank == "J" or self.rank == "Q":
+                return 10
+            
+            return int(self.rank)
+        
