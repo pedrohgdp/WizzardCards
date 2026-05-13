@@ -4,18 +4,17 @@ from Game import consts_and_variables
 from Game.jogo_screen import JogoScreen
 from enum import Enum
 
-class Estado(Enum):
+class States(Enum):
     INTRO = 1
-    PEDIR_NOME = 2
-    JOGO = 3
+    ASKING_NAME = 2
 
 class CutsceneScreen:
     def __init__(self, game_controller):
         self.game_controller = game_controller
         
         self.timer = 0
-        self.estado = Estado.INTRO
-        self.nome_interno = ""
+        self.actual_state = States.INTRO
+        self.intern_name = ""
 
         self.width = consts_and_variables.WIDTH
         self.height = consts_and_variables.HEIGHT
@@ -23,56 +22,53 @@ class CutsceneScreen:
 
     def handle_events(self, events):
         for event in events:
-            if self.estado == Estado.PEDIR_NOME:
+            if self.actual_state == States.ASKING_NAME:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_BACKSPACE:
-                        self.nome_interno = self.nome_interno[:-1]
+                        self.intern_name = self.intern_name[:-1]
                     elif event.key == pygame.K_RETURN:
-                        self.converter_nome_para_seed()
+                        self.convert_name_to_seed()
                     else:
-                        self.nome_interno += event.unicode
+                        self.intern_name += event.unicode
 
     def update(self, dt):
-        if self.estado == Estado.INTRO:
+        if self.actual_state == States.INTRO:
             self.timer += dt
             if self.timer >= 2:
-                self.estado = Estado.PEDIR_NOME
+                self.actual_state = States.ASKING_NAME
                 self.timer = 0
-
-        if self.estado == Estado.JOGO:
-            self.trocar_para_estado_jogo()
 
     def draw(self, screen):
         screen.fill((0, 0, 0))
 
-        if self.estado == Estado.INTRO:
-            self.escrever_texto_1_tela(screen)
-        elif self.estado == Estado.PEDIR_NOME:
-            self.escrever_texto_2_tela(screen)
+        if self.actual_state == States.INTRO:
+            self.write_text_1_on_screen(screen)
+        elif self.actual_state == States.ASKING_NAME:
+            self.write_text_2_on_screen(screen)
         
 
-    def escrever_texto_1_tela(self, screen):
-        texto = self.game_controller.font.render("Ola mago. Bem-vindo ao jogo! ", True, (255, 255, 255))
-        rect = texto.get_rect(center=(self.width/2, self.height/2))
-        screen.blit(texto, rect)
+    def write_text_1_on_screen(self, screen):
+        text = self.game_controller.font.render("Ola mago. Bem-vindo ao jogo! ", True, (255, 255, 255))
+        rect = text.get_rect(center=(self.width/2, self.height/2))
+        screen.blit(text, rect)
 
-    def escrever_texto_2_tela(self, screen):
-        texto = self.game_controller.font.render("Contenos o seu nome: ", True, (255, 255, 255))
-        rect = texto.get_rect(center=(self.width/2, self.height/2))
-        screen.blit(texto, rect)
+    def write_text_2_on_screen(self, screen):
+        text = self.game_controller.font.render("Conte para a gente o seu nome: ", True, (255, 255, 255))
+        rect = text.get_rect(center=(self.width/2, self.height/2))
+        screen.blit(text, rect)
 
-        texto_nome = self.game_controller.font.render(self.nome_interno, True, (255,255,255))
-        rect_texto_nome = texto_nome.get_rect(center=(self.width/2 - 30, self.height/2 + 50))
-        screen.blit(texto_nome, rect_texto_nome)
+        text_name = self.game_controller.font.render(self.intern_name, True, (255,255,255))
+        rect_text_name = text_name.get_rect(center=(self.width/2 - 30, self.height/2 + 50))
+        screen.blit(text_name, rect_text_name)
     
-    def converter_nome_para_seed(self):
-        valor = 0
-        for c in self.nome_interno:
-            valor += ord(c)
-        self.nome_interno = ""
-        self.estado = Estado.JOGO
-        consts_and_variables.seed_random = valor + random.randint(0, 50)
+    def convert_name_to_seed(self):
+        value = 0
+        for c in self.intern_name:
+            value += ord(c)
+        self.intern_name = ""
+        self.change_to_game()
+        consts_and_variables.seed_random = value + random.randint(0, 50)
         print("seed_random: ", consts_and_variables.seed_random)
 
-    def trocar_para_estado_jogo(self):
+    def change_to_game(self):
         self.game_controller.current_screen = JogoScreen(self.game_controller)

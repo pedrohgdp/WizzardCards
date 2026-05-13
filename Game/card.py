@@ -30,6 +30,10 @@ class Card:
     def click(self, pos, select_atk_cards, select_def_cards):
         if self.rect.collidepoint(pos):
 
+
+            if select_def_cards and self.selected_atk:
+                return 0
+
             if select_atk_cards and not select_def_cards:
                 self.selected_atk = not self.selected_atk
             
