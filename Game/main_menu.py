@@ -4,14 +4,14 @@ from Game.cutscene_screen import CutsceneScreen
 
 class MainMenu:
     def __init__(self, game_controller):
-        pygame.mixer.music.load("Game/Music/Menu-UndetaleCopy.ogg")
+        pygame.mixer.music.load('Game/Music/Menu-UndetaleCopy.ogg')
         pygame.mixer.music.set_volume(0.3)
         pygame.mixer.music.play(-1)
         self.game_controller = game_controller
         self.timer = 0.0
         self.blink_interval = 1.0
 
-        self.font_menu = pygame.font.Font("Game/Font/PressStart2P-Regular.ttf", 10)
+        self.font_menu = pygame.font.Font('Game/Font/PressStart2P-Regular.ttf', 10)
 
         self.width = 600
         self.height = 600

@@ -1,8 +1,9 @@
 import pygame
 
 class Card:
-    def __init__(self, image, pos, size, rank, player):
+    def __init__(self, image, pos, size, rank, code, player):
         self.rank = rank
+        self.code = code
 
         self.player = player
         self.image = pygame.image.load(image).convert_alpha()
