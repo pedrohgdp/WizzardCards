@@ -6,39 +6,31 @@ O jogo possui sistema de combate baseado em cartas, com mecânica de ataque e de
 
 ---
 
-# EXECUTAR O PROJETO (MODO DESENVOLVIMENTO)
+# Instalação
 
-## 1. Pré-requisitos
-- Python 3 instalado
-- pip instalado
+## Linux
 
----
-
-## Criando e ativando ambiente virtual (venv)
-
-### Linux / macOS
 ```bash
 python -m venv venv
 source venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
 ```
 
-### Windows (CMD ou PowerShell)
-```bash
+## Windows (CMD)
+
+```cmd
 python -m venv venv
 venv\Scripts\activate
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
 ```
 
-## Instalar dependências
-```bash
-pip install -r requirements.txt
-```
+## Windows (PowerShell)
 
-## Executar o jogo
-```bash
-python main.py
+```powershell
+python -m venv venv
+.\venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
 ```
-
-## Observação
-- Linux/macOS usa `source venv/bin/activate`
-- Windows usa `venv\Scripts\activate`
-- Não misture os comandos
