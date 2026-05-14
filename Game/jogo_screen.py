@@ -160,8 +160,6 @@ class JogoScreen:
                                 break
 
     def update(self, dt):
-        print("estado autal", self.actual_state)
-        print("TOTAL CARTAS MAO atk", self.total_atk_cards_select)
         if self.actual_state == GameStates.END_GAME:
             return
 
@@ -232,15 +230,15 @@ class JogoScreen:
             screen.blit(enemy_damage_surface, (200, 73))
 
         if self.actual_state == GameStates.END_GAME:
-            end_game_surf = self.game_end_font.render(self.game_end_text, True, (255, 190, 50))
+            end_game_surf = self.game_end_font.render(self.game_end_text, True, (255, 220, 80))
 
-            rect = end_game_surf.get_rect(center=(self.screen_width // 2, self.screen_height // 2 - 40))
+            rect = end_game_surf.get_rect(center=(self.screen_width // 2, self.screen_height // 2 - 63))
 
             screen.blit(end_game_surf, rect)
 
             small_text = self.small_font.render("Pressione qualquer tecla para voltar ao menu",True,(255, 255, 255))
 
-            small_rect = small_text.get_rect(center=(self.screen_width // 2, self.screen_height // 2 + 40))
+            small_rect = small_text.get_rect(center=(self.screen_width // 2, self.screen_height // 2 + 50))
 
             screen.blit(small_text, small_rect)
 
@@ -277,7 +275,12 @@ class JogoScreen:
         self.player.life = max(0, self.player.life)
         self.enemy.life = max(0, self.enemy.life)
 
-        if self.player.life == 0:
+        if self.enemy.life == 0 and self.player.life == 0:
+            self.game_end_text = "Empate"
+            self.actual_state = GameStates.END_GAME
+            return
+
+        elif self.player.life == 0:
             self.game_end_text = "VOCÊ PERDEU"
             self.actual_state = GameStates.END_GAME
             return
@@ -286,6 +289,7 @@ class JogoScreen:
             self.game_end_text = "VOCÊ GANHOU"
             self.actual_state = GameStates.END_GAME
             return
+        
 
         self.player_damage_text = f"-{player_damage}"
         self.enemy_damage_text = f"-{enemy_damage}"
