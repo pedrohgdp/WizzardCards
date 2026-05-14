@@ -26,7 +26,7 @@ class IDLE(Enum):
 class JogoScreen:
     def __init__(self, game_controller):
         pygame.mixer.music.load('Game/Music/Battle-TheMessegerCopy.ogg')
-        pygame.mixer.music.set_volume(0.3)
+        pygame.mixer.music.set_volume(0.04)
         pygame.mixer.music.play(-1)
 
         self.game_controller = game_controller
