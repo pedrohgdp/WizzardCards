@@ -35,14 +35,19 @@ class Card:
             if select_def_cards and self.selected_atk:
                 return 0
 
+            value = 10 if self.rank in ["K", "Q", "J"] else int(self.rank)
+
             if select_atk_cards and not select_def_cards:
                 self.selected_atk = not self.selected_atk
+
+                if self.selected_atk:
+                    return ("selected_atk", value)
+
+                return ("unselected_atk", value)
             
             if not select_atk_cards and select_def_cards:
                 self.selected_def = not self.selected_def
-                
-            if self.rank == "K" or self.rank == "J" or self.rank == "Q":
-                return 10
+                return value
             
-            return int(self.rank)
+            return 0
         

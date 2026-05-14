@@ -147,16 +147,23 @@ class JogoScreen:
                     for card in self.player_cards:
 
                         if self.idle_state == IDLE.ATK:
-                            value = card.click(pos, True, False)
-                            if value:
-                                self.total_atk_cards_select += 1
-                                self.player_atk += value
+                            result = card.click(pos, True, False)
+
+                            if result:
+                                action, value = result
+                                if action == "selected_atk":
+                                    self.total_atk_cards_select += 1
+                                    self.player_atk += value
+
+                                elif action == "unselected_atk":
+                                    self.total_atk_cards_select -= 1
+                                    self.player_atk -= value
                                 break
 
                         elif self.idle_state == IDLE.DEF:
-                            value = card.click(pos, False, True)
-                            if value:
-                                self.player_def += value
+                            result = card.click(pos, False, True)
+                            if result:
+                                self.player_def += result
                                 break
 
     def update(self, dt):
@@ -180,7 +187,7 @@ class JogoScreen:
                 return
     
             self.enemy_atk, self.enemy_def = (
-                self.enemy.calculate_best_attack_and_defense(self.enemy_cards)
+                self.enemy.calculate_best_attack_and_defense(self.enemy_cards, self.player_cards)
             )
 
             self.actual_state = GameStates.ATTACK_AND_DEFENSE_MODE
